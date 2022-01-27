@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+    ui:
+        container_name: ui 
+        build:
+            context: client
+            target: development # Change to production for production
+            dockerfile: Dockerfile
+        ports:
+            - 80:3001
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+        stdin_open: true
+        depends_on:
+            - api
+        env_file:
+            - client/.env
+        volumes:
+            - ./client/src:/app/src
+
+    api:
+        container_name: api
+        build:
+            context: server
+            target: development
+            dockerfile: Dockerfile
+        ports:
+            - 3000:3000
+        depends_on:
+            - postgres
+        env_file:
+            - server/.env
+        restart: unless-stopped
+        volumes:
+            - ./server/src:/app/src
+            - /app/node_modules/bcrypt/
+
+    postgres:
+        image: postgres:14
+        container_name: postgres
+        restart: always
+        environment: 
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=sawebpass
+        ports:
+            - 5432:5432
+        env_file:
+            - server/.env
+        volumes:
+            - postgres:/var/lib/postgresql/data
+
+volumes:
+    postgres:
+        name: nest-db
+

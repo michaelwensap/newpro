@@ -1,0 +1,45 @@
+.toat {
+    position: absolute;
+    width: 334px;
+    height: 48px;
+    right: 25%;
+    left: 50%;
+    bottom: 32px;
+    margin-left: -150px;
+    /* Grey/9 */
+    background: #111d29;
+    /* Grey/Medium */
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 8px 16px rgba(131, 150, 168, 0.16);
+    border-radius: 12px;
+}
+
+.toat-text {
+    position: absolute;
+    color: #ffffff;
+    font-size: 14px;
+    /* line-height: 24px;
+    margin-top: 10px; */
+    /* padding-left: 10px; */
+    /* margin-left: 50px; */
+    /* float: right; */
+    width: 270px;
+    height: 100%;
+    left: 50px;
+    bottom: 0px;
+    line-height: 3.5;
+    /*text-align: center; */
+}
+
+.toat-icon {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 8px;
+    top: 8px;
+    /* margin-top: 7px;
+    margin-left: 5px; */
+    /* Grey/8 */
+    background: #223548;
+    border-radius: 6px;
+}

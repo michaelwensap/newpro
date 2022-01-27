@@ -1,0 +1,96 @@
+.card {
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 4px 8px rgba(131, 150, 168, 0.16);
+    border-radius: 4px;
+}
+.card--light {
+    background: #ffffff;
+}
+.card--large {
+    width: 100%;
+    height: 442px;
+}
+.card--xlarge {
+    width: 100%;
+}
+
+.pad--large {
+    padding: 80px 200px 10px 200px;
+}
+
+.pad--xsmall {
+    padding: 1%;
+}
+
+.mcard {
+    position: relative;
+    width: 99%;
+    height: 144px;
+    /* Blue/4 */
+    /* Grey/Small */
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 4px 8px rgba(131, 150, 168, 0.16);
+    border-radius: 4px;
+}
+.blue4 {
+    background: #1b90ff;
+}
+.blue3 {
+    background: #4db1ff;
+}
+.blue5 {
+    background: #0070f2;
+}
+.blue6 {
+    background: #0057d2;
+}
+.blue7 {
+    background: #0040b0;
+}
+.mcard-amount {
+    position: relative;
+    width: 239px;
+    height: 52px;
+    left: 23px;
+    top: 20px;
+    color: #ffffff;
+    font-size: 32px;
+    line-height: 40px;
+    /* or 125% */
+    display: flex;
+    align-items: center;
+}
+.mcard-text {
+    position: relative;
+    width: 285px;
+    height: 31px;
+    left: 23px;
+    top: 10px;
+    /* 16bl */
+    font-size: 16px;
+    line-height: 24px;
+    font-family: '72-Black' !important;
+    /* or 150% */
+    display: flex;
+    align-items: center;
+
+    /* White */
+    color: #ffffff;
+}
+.mcard-subtext {
+    position: relative;
+    height: 24px;
+    float: right;
+    top: 20px;
+    padding-right: 10px;
+    /* 14 */
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+    display: flex;
+    align-items: center;
+    text-align: right;
+
+    /* Grey/1 */
+    color: #f5f6f7;
+}

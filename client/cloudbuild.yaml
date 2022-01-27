@@ -1,0 +1,16 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--target', 'production', '-t', 'gcr.io/sap-nvt-sapio-savingsnow/saweb-ui', '--build-arg', 'API_SERVER=${_API_SERVER}', '.']
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/sap-nvt-sapio-savingsnow/saweb-ui']
+  # Deploy contaimer image to Cloud RUN
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: ['run', 'deploy', 'ui', '--image', 'gcr.io/sap-nvt-sapio-savingsnow/saweb-ui', '--region', 'us-central1', '--platform', 'managed', '--port', '80']
+substitutions:
+    _API_SERVER: https://api-ytubqryr3q-uc.a.run.app/graphql
+images:
+  - gcr.io/sap-nvt-sapio-savingsnow/saweb-ui
+timeout: 6000s

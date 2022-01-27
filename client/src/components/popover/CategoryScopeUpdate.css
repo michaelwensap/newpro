@@ -1,0 +1,111 @@
+.scope {
+    position: relative;
+    width: 280px;
+    max-height: 554px;
+    background: #ffffff;
+    /* Grey/Medium */
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 8px 16px rgba(131, 150, 168, 0.16);
+    border-radius: 4px;
+}
+.scope-header {
+    position: relative;
+    width: 280px;
+    height: 48px;
+    font-size: 14px;
+    line-height: 24px;
+    /* or 171% */
+    /* Grey/7 */
+    color: #354a5f;
+    padding: 10px;
+}
+.scope-info {
+    position: relative;
+    width: 280px;
+    height: 92px;
+    /* Grey/1 */
+
+    background: #f5f6f7;
+    opacity: 0.6;
+}
+.info {
+    font-size: 12px;
+    line-height: 24px;
+    /* identical to box height, or 200% */
+    margin-left: 10px;
+
+    /* Grey/7 */
+
+    color: #354a5f;
+}
+.scope-header-title {
+    display: inline-block;
+}
+.scope-header-close {
+    margin-left: 20px;
+    float: right;
+}
+.form-check-label {
+    /* Regular/14 */
+
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+
+    /* Grey/Grey8 */
+
+    color: #223548;
+}
+.scope-radio-title {
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #223548;
+}
+
+.scope-comment {
+    border-top: solid;
+    border-bottom: solid;
+    border-color: #f5f6f7;
+}
+.scope-footer {
+    height: 54px;
+}
+.scope-footer-button {
+    position: relative;
+    left: 170px;
+}
+
+.scope-radio-btn {
+    /* Bold/14 */
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+
+    text-align: center;
+
+    /* Blue/4 */
+
+    color: #1b90ff;
+}
+.scope-comment-list {
+    overflow-y: auto;
+}
+.scope-comment-details {
+    height: 172px;
+}
+.btn-prm {
+    width: '63px' !important;
+    height: '32px' !important;
+    top: '10px' !important;
+    position: 'relative' !important;
+    line-height: '3px' !important;
+}
+.btn-dis {
+    background: '#D5DADD' !important;
+    color: '#A9B4BE' !important;
+}
+.btn-act {
+    background: #1b90ff !important;
+    color: #ffffff !important;
+}

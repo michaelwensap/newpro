@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "customer_name": "Sample High-Tech Company 1",
+      "customer_info": null,
+      "sap_crm_bp_id": 4444,
+      "capiq_company": 0,
+      "customer_status": null,
+      "record_create_date": "2021-08-24T18:32:00.489Z",
+      "record_update_date": null,
+      "record_update_user_id": null,
+      "create_user_id": null
+    },
+    {
+      "customer_name": "Sample High-Tech Company 2",
+      "customer_info": null,
+      "sap_crm_bp_id": 5554,
+      "capiq_company": 223,
+      "customer_status": null,
+      "record_create_date": "2021-08-14T04:17:46.385Z",
+      "record_update_date": null,
+      "record_update_user_id": null,
+      "create_user_id": null
+    }
+  ]
+}

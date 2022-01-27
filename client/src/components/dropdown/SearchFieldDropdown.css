@@ -1,0 +1,27 @@
+.dropdown-group {
+    position: relative;
+    width: 200px;
+}
+.btn-dropdown {
+    /* field/right-icon/default */
+    min-width: 147px;
+    min-height: 42px;
+    /* Grey/1 */
+    background: #f5f6f7;
+    border-radius: 6px;
+}
+.item-group {
+    position: absolute;
+}
+.dropdown-text {
+    font-weight: bold;
+    /* 14b */
+    font-size: 14px;
+    line-height: 24px;
+    /* Grey/7 */
+    color: #354a5f;
+}
+
+.fs14 {
+    font-size: 14px;
+}

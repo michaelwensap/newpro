@@ -1,0 +1,502 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  PROJECT_LEAD
+  USER 
+} 
+
+model User { 
+  id                    Int    @id @default(autoincrement()) 
+  username              String?
+  firstname             String?
+  lastname              String?
+  password              String?
+  email                 String    @unique
+  status                String?   @default("pending") 
+  role                  Role?     @default(USER) 
+  record_create_date    DateTime? @default(now())
+  last_login_date       DateTime?
+  updatedCustomers      Customer[] @relation("CustomerUpdateUser")
+  createdCustomers      Customer[] @relation("CustomerCreateUser")
+  createdAssessments    OpportunityAssessment[] @relation("OACreateUser")
+  updatedAssessments    OpportunityAssessment[] @relation("OAUpdateUser")
+}
+
+model Customer {
+  id                    Int       @id @default(autoincrement())
+  customer_name         String    @unique
+  customer_info         String?
+  sap_crm_bp_id         Int?
+  capiq_company         Int?
+  customer_status       String?
+  record_create_date    DateTime?
+  record_update_date    DateTime?
+  record_update_user    User? @relation("CustomerUpdateUser", fields: [record_update_user_id], references: [id])
+  record_update_user_id Int?
+  create_user           User? @relation("CustomerCreateUser", fields: [create_user_id], references: [id])
+  create_user_id        Int?
+  opportunityAssessments OpportunityAssessment[]
+}
+
+model OpportunityAssessment {
+  id                        Int       @id @default(autoincrement())
+  customer                  Customer? @relation(fields: [customer_id], references: [id])
+  customer_id               Int?
+  opportunity_name          String?
+  sa_owner_user             User? @relation("OACreateUser", fields: [sa_owner_user_id], references: [id])
+  sa_owner_user_id          Int?
+  opportunity_start_date    DateTime?
+  opportunity_end_date      DateTime?
+  opportunity_status        String?
+  spend_file                SpendFile? @relation(fields: [spend_file_id], references: [id])
+  spend_file_id             Int?
+  spend_file_name           String?
+  spend_file_desc           String?
+  spend_file_class_system   String?
+  spend_file_class_standard String?
+  spend_file_processed_date DateTime?
+  record_create_date        DateTime?
+  record_update_date        DateTime?
+  record_update_user        User? @relation("OAUpdateUser", fields: [record_update_user_id], references: [id])
+  record_update_user_id     Int?
+  spend_file_std_cur        String?
+}
+
+model Classification {
+  class_type        String?
+  class_type_id     Int
+  class_code        Int
+  class_desc        String?
+  class_level       Int?
+  class_level1_code Int?
+  class_level1_desc String?
+  class_level2_code Int?
+  class_level2_desc String?
+  class_level3_code Int?
+  class_level3_desc String?
+  class_level4_code Int?
+  class_level4_desc String?
+  class_level5_code Int?
+  class_level5_desc String?
+  class_level6_code Int?
+  class_level6_desc String?
+  class_level7_code Int?
+  class_level7_desc String?
+  class_level8_code Int?
+  class_level8_desc String?
+  class_level9_code Int?
+  class_level9_desc String?
+
+  @@id([class_type_id, class_code], map: "dim_classification_all_industry_pkey")
+}
+
+model SpendFile {
+  id                                       Int       @id @default(autoincrement())
+  sa_oppor                                 OpportunityAssessment?
+  sa_oppor_id                              Int?
+  record_id                                Int?
+  vendor_id                                Int?
+  vendor_name                              String?   @db.VarChar(500)
+  last_sourced_date                        DateTime? @db.Timestamp(6)
+  contract_expiration_date                 DateTime? @db.Timestamp(6)
+  erp_system                               String?   @db.VarChar(20)
+  erp_invoice_spend                        Decimal?  @db.Decimal(27, 7)
+  erp_invoice_spend_iso_cur                String?   @db.VarChar(20)
+  erp_invoice_spend_in_standard_currency   Decimal?  @db.Decimal(27, 7)
+  currency_conversion_rate                 Decimal?  @db.Decimal(27, 7)
+  erp_invoice_count                        Int?
+  invoice_method                           String?   @db.VarChar(50)
+  invoice_origination_country              String?   @db.VarChar(50)
+  erp_po_spend                             Decimal?  @db.Decimal(27, 7)
+  erp_po_spend_iso_cur                     String?   @db.VarChar(20)
+  erp_po_spend_in_standard_currency        Decimal?  @db.Decimal(27, 7)
+  erp_po_count                             Int?
+  payment_count                            Int?
+  payment_method                           String?   @db.VarChar(50)
+  payment_terms_code                       String?   @db.VarChar(50)
+  payment_term_description                 String?   @db.VarChar(50)
+  standard_term                            String?   @db.VarChar(50)
+  discount_term                            String?   @db.VarChar(50)
+  discount_percentage                      Decimal?  @db.Decimal(27, 7)
+  discounts_earned                         Decimal?  @db.Decimal(27, 7)
+  discounts_lost                           Decimal?  @db.Decimal(27, 7)
+  dpo                                      Decimal?  @db.Decimal(27, 7)
+  buyer_region                             String?   @db.VarChar(50)
+  business_unit                            String?   @db.VarChar(50)
+  gl_code                                  Int?
+  gl_code_description                      String?   @db.VarChar(50)
+  sic_unspsc_code                          Int?
+  sic_unspsc_description                   String?   @db.VarChar(50)
+  erp_commodity_code_or_description_tier_1 String?   @db.VarChar(50)
+  erp_commodity_code_or_description_tier_2 String?   @db.VarChar(50)
+  vendor_tax_id                            String?   @db.VarChar(50)
+  vendor_vat_id                            String?   @db.VarChar(50)
+  vendor_duns                              String?   @db.VarChar(50)
+  vendor_an_id                             String?   @db.VarChar(50)
+  vendor_industry_description              String?   @db.VarChar(50)
+  vendor_address_line_1                    String?   @db.VarChar(150)
+  vendor_address_line_2                    String?   @db.VarChar(150)
+  vendor_city                              String?   @db.VarChar(50)
+  vendor_state_province                    String?   @db.VarChar(50)
+  vendor_postal_code                       String?   @db.VarChar(50)
+  vendor_country                           String?   @db.VarChar(50)
+  vendor_country_code                      String?   @db.VarChar(50)
+  user_defined_text_field_1                String?   @db.VarChar(150)
+  user_defined_text_field_2                String?   @db.VarChar(150)
+  user_defined_text_field_3                String?   @db.VarChar(150)
+  user_defined_text_field_4                String?   @db.VarChar(150)
+  user_defined_text_field_5                String?   @db.VarChar(150)
+  user_defined_numeric_field_1             Decimal?  @db.Decimal(27, 7)
+  user_defined_numeric_field_2             Decimal?  @db.Decimal(27, 7)
+  user_defined_numeric_field_3             Decimal?  @db.Decimal(27, 7)
+  user_defined_numeric_field_4             Decimal?  @db.Decimal(27, 7)
+  user_defined_numeric_field_5             Decimal?  @db.Decimal(27, 7)
+  user_defined_date_field_1                DateTime? @db.Timestamp(6)
+  fiscal_year                              Int?
+  dedupe_stats                             String?   @db.VarChar(20)
+  dedupe_key                               String?   @db.VarChar(50)
+  anid_of_matched_supplier                 String?   @db.VarChar(20)
+  capiq_company_id                         Int?
+  classification_score                     String?   @db.VarChar(30)
+  classification_source                    String?   @db.VarChar(20)
+  classification_type                      Int?
+  classification_code                      Int?
+  direct_spend                             String?   @db.VarChar(20)
+  scope_in_out                             String?   @db.VarChar(50)
+  out_of_scope_reason                      String?   @db.VarChar(100)
+  comments                                 String?   @db.VarChar(500)
+  record_create_date                       DateTime? @db.Timestamp(6)
+  record_update_date                       DateTime? @db.Timestamp(6)
+  supplier_scope_override_flag             Int?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model audit_category_comments {
+  sa_oppor_id           Int
+  object_id             Int
+  comments              String?   @db.VarChar(500)
+  record_update_user_id String?   @db.Uuid
+  record_update_date    DateTime? @db.Timestamp(6)
+  object_type           String?   @db.VarChar(20)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model audit_category_scope {
+  sa_oppor_id           Int
+  object_key            Int?
+  object_type           String?   @db.VarChar(20)
+  prev_val              String?   @db.VarChar(100)
+  new_val               String?   @db.VarChar(100)
+  record_update_user_id String?   @db.Uuid
+  record_update_date    DateTime? @db.Timestamp(6)
+  object_field          String?   @db.VarChar(30)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model dim_capiq_company_alternate_industry {
+  company_id            Int?
+  gics_id               Int?
+  primary_industry_flag Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model dim_capiq_company_primary_industry {
+  company_id       Int?
+  company_name     String? @db.VarChar(2000)
+  gics_level       Int?
+  gics_id          Int?
+  gics_description String? @db.VarChar(100)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model dim_capiq_company_tags {
+  company_id Int
+  tags       String? @db.VarChar
+
+  @@ignore
+}
+
+model dim_exclusion_reason {
+  exclusion_reason_skey Int     @id
+  l1_reason             String? @db.VarChar(20)
+  l2_reason             String? @db.VarChar(50)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model dim_gics_industry {
+  capiq_industry_id            Int?
+  goods_or_service             String?   @db.VarChar(12)
+  capiq_industry_desc          String?   @db.VarChar(100)
+  industry_level               String?   @db.VarChar(2)
+  l1_industry_name             String?   @db.VarChar(30)
+  l1_industry_id               Int?
+  l2_industry_name             String?   @db.VarChar(60)
+  l2_industry_id               Int?
+  l3_industry_name             String?   @db.VarChar(60)
+  l3_industry_id               Int?
+  l4_industry_name             String?   @db.VarChar(70)
+  l4_industry_id               Int?
+  l5_industry_name             String?   @db.VarChar(100)
+  l5_industry_id               Int?
+  l6_industry_name             String?   @db.VarChar(100)
+  l6_industry_id               Int?
+  l7_industry_name             String?   @db.VarChar(100)
+  l7_industry_id               Int?
+  l8_industry_name             String?   @db.VarChar(100)
+  l8_industry_id               Int?
+  l9_industry_name             String?   @db.VarChar(100)
+  l9_industry_id               Int?
+  sourcing_eligible            String?   @db.VarChar(3)
+  buying_invoice_eligible      String?   @db.VarChar(3)
+  requistion_able              String?   @db.VarChar(3)
+  requisition_type             String?   @db.VarChar(50)
+  contract_invoice_eligible    String?   @db.VarChar(3)
+  commerce_automation_eligible String?   @db.VarChar(3)
+  supp_chain_collab_eligible   String?   @db.VarChar(3)
+  discount_scf_eligible        String?   @db.VarChar(3)
+  sap_fieldglass_eligible      String?   @db.VarChar(3)
+  sap_concur_eligible          String?   @db.VarChar(3)
+  buy_process                  String?   @db.VarChar(80)
+  industry_company_id          Int?
+  cy2018_dpo                   String?   @db.VarChar(25)
+  cy2018_dso                   String?   @db.VarChar(25)
+  cy2018_dio                   String?   @db.VarChar(25)
+  cy2018_ccc                   String?   @db.VarChar(25)
+  cy2018_inventory_turns       Decimal?  @db.Decimal(20, 1)
+  cy2018_ebit_margin           Decimal?  @db.Decimal(20, 1)
+  wcm_summary_inscope          String?   @db.VarChar(25)
+  wcm_summary_outscope         String?   @db.VarChar(25)
+  create_timestamp             DateTime? @db.Timestamp(6)
+  update_timestamp             DateTime? @db.Timestamp(6)
+  sub_type_id                  Int?
+  working_captial_segmentation String?   @db.VarChar(100)
+  spot_buy_eligible            String?   @db.VarChar(3)
+
+  @@ignore
+}
+
+model dim_pass_key {
+  user_id   Int     @id
+  pass_code String? @db.VarChar(1000)
+}
+
+model dim_unspsc {
+  unspsc_key     Int     @id(map: "dim_unspsc_commodity_pkey")
+  unspsc_code    Int?
+  unspsc_desc    String? @db.VarChar(250)
+  unspsc_def     String? @db.VarChar(5000)
+  unspsc_level   Int?
+  unspsc_code_l1 Int?
+  unspsc_desc_l1 String? @db.VarChar(250)
+  unspsc_code_l2 Int?
+  unspsc_desc_l2 String? @db.VarChar(250)
+  unspsc_code_l3 Int?
+  unspsc_desc_l3 String? @db.VarChar(250)
+  unspsc_code_l4 Int?
+  unspsc_desc_l4 String? @db.VarChar(250)
+}
+
+model fact_beroe_sub_category_softness_data {
+  sub_category_id    Int       @id
+  sub_category_name  String?   @db.VarChar(300)
+  price_index        Decimal?  @db.Decimal(20, 4)
+  input_cost_index   Decimal?  @db.Decimal(20, 4)
+  supply_demand_gap  Decimal?  @db.Decimal(20, 4)
+  market_competition Decimal?  @db.Decimal(20, 4)
+  demand_index       Decimal?  @db.Decimal(20, 4)
+  create_timestamp   DateTime? @db.Timestamp(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model stg_input_data_collection {
+  sa_oppor_id                              Int?
+  record_id                                String? @db.VarChar(50)
+  vendor_id                                String? @db.VarChar(50)
+  vendor_name                              String? @db.VarChar(500)
+  last_sourced_date                        String? @db.VarChar(50)
+  contract_expiration_date                 String? @db.VarChar(50)
+  erp_system                               String? @db.VarChar(50)
+  erp_invoice_spend                        String? @db.VarChar(50)
+  erp_invoice_spend_iso_cur                String? @db.VarChar(50)
+  erp_invoice_spend_in_standard_currency   String? @db.VarChar(50)
+  currency_conversion_rate                 String? @db.VarChar(50)
+  erp_invoice_count                        String? @db.VarChar(50)
+  invoice_method                           String? @db.VarChar(50)
+  invoice_origination_country              String? @db.VarChar(50)
+  erp_po_spend                             String? @db.VarChar(50)
+  erp_po_spend_iso_cur                     String? @db.VarChar(10)
+  erp_po_spend_in_standard_currency        String? @db.VarChar(50)
+  erp_po_count                             String? @db.VarChar(50)
+  payment_count                            String? @db.VarChar(50)
+  payment_method                           String? @db.VarChar(50)
+  payment_terms_code                       String? @db.VarChar(50)
+  payment_term_description                 String? @db.VarChar(50)
+  standard_term                            String? @db.VarChar(50)
+  discount_term                            String? @db.VarChar(50)
+  discount_percentage                      String? @db.VarChar(50)
+  discounts_earned                         String? @db.VarChar(50)
+  discounts_lost                           String? @db.VarChar(50)
+  dpo                                      String? @db.VarChar(50)
+  buyer_region                             String? @db.VarChar(50)
+  business_unit                            String? @db.VarChar(50)
+  gl_code                                  String? @db.VarChar(50)
+  gl_code_description                      String? @db.VarChar(50)
+  sic_unspsc_code                          String? @db.VarChar(50)
+  sic_unspsc_description                   String? @db.VarChar(50)
+  erp_commodity_code_or_description_tier_1 String? @db.VarChar(50)
+  erp_commodity_code_or_description_tier_2 String? @db.VarChar(50)
+  vendor_tax_id                            String? @db.VarChar(50)
+  vendor_vat_id                            String? @db.VarChar(50)
+  vendor_duns                              String? @db.VarChar(50)
+  vendor_an_id                             String? @db.VarChar(50)
+  vendor_industry_description              String? @db.VarChar(50)
+  vendor_address_line_1                    String? @db.VarChar(150)
+  vendor_address_line_2                    String? @db.VarChar(150)
+  vendor_city                              String? @db.VarChar(50)
+  vendor_state_province                    String? @db.VarChar(50)
+  vendor_postal_code                       String? @db.VarChar(50)
+  vendor_country                           String? @db.VarChar(50)
+  vendor_country_code                      String? @db.VarChar(50)
+  user_defined_text_field_1                String? @db.VarChar(150)
+  user_defined_text_field_2                String? @db.VarChar(150)
+  user_defined_text_field_3                String? @db.VarChar(150)
+  user_defined_text_field_4                String? @db.VarChar(150)
+  user_defined_text_field_5                String? @db.VarChar(150)
+  user_defined_numeric_field_1             String? @db.VarChar(50)
+  user_defined_numeric_field_2             String? @db.VarChar(50)
+  user_defined_numeric_field_3             String? @db.VarChar(50)
+  user_defined_numeric_field_4             String? @db.VarChar(50)
+  user_defined_numeric_field_5             String? @db.VarChar(50)
+  user_defined_date_field_1                String? @db.VarChar(50)
+  fiscal_year                              String? @db.VarChar(50)
+  dedupe_stats                             String? @db.VarChar(50)
+  dedupe_key                               String? @db.VarChar(50)
+  anid_of_matched_supplier                 String? @db.VarChar(50)
+  capiq_company_id                         String? @db.VarChar(50)
+  classification_score                     String? @db.VarChar(50)
+  classification_source                    String? @db.VarChar(50)
+  classification_type                      String? @db.VarChar(50)
+  classification_code                      String? @db.VarChar(50)
+  direct_spend                             String? @db.VarChar(50)
+  scope_in_out                             String? @db.VarChar(50)
+  out_of_scope_reason                      String? @db.VarChar(100)
+  comments                                 String? @db.VarChar(250)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model stg_input_data_collection_bkp {
+  data_collection_skey                     Int       @default(autoincrement())
+  sa_file_id                               Int?
+  record_id                                Int?
+  vendor_id                                Int?
+  vendor_name                              String?   @db.VarChar(500)
+  erp_system                               String?   @db.VarChar(50)
+  erp_invoice_spend                        Decimal?  @db.Decimal(27, 7)
+  erp_invoice_spend_iso_cur                String?   @db.VarChar(10)
+  erp_invoice_spend_in_standard_currency   Decimal?  @db.Decimal(27, 7)
+  erp_invoice_spend_standard_iso_cur       String?   @db.VarChar(10)
+  currency_conversion_rate                 Decimal?  @db.Decimal(27, 7)
+  erp_invoice_count                        Int?
+  invoice_method                           String?   @db.VarChar(50)
+  invoice_origination_country              String?   @db.VarChar(50)
+  erp_po_spend                             Decimal?  @db.Decimal(27, 7)
+  erp_po_spend_iso_cur                     String?   @db.VarChar(10)
+  erp_po_spend_in_standard_currency        Decimal?  @db.Decimal(27, 7)
+  erp_po_spend_standard_iso_cur            String?   @db.VarChar(10)
+  erp_po_count                             Int?
+  payment_count                            Int?
+  payment_method                           String?   @db.VarChar(50)
+  payment_terms_code                       String?   @db.VarChar(50)
+  payment_term_description                 String?   @db.VarChar(50)
+  standard_term                            String?   @db.VarChar(50)
+  discount_term                            String?   @db.VarChar(50)
+  discount_percentage                      Decimal?  @db.Decimal(27, 7)
+  discounts_earned                         Decimal?  @db.Decimal(27, 7)
+  discounts_lost                           Decimal?  @db.Decimal(27, 7)
+  dpo                                      Decimal?  @db.Decimal(27, 7)
+  buyer_region                             String?   @db.VarChar(50)
+  business_unit                            String?   @db.VarChar(50)
+  gl_code                                  Int?
+  gl_code_description                      String?   @db.VarChar(50)
+  sic_unspsc_code                          Int?
+  sic_unspsc_description                   String?   @db.VarChar(50)
+  erp_commodity_code_or_description_tier_1 String?   @db.VarChar(50)
+  erp_commodity_code_or_description_tier_2 String?   @db.VarChar(50)
+  vendor_tax_id                            String?   @db.VarChar(50)
+  vendor_vat_id                            String?   @db.VarChar(50)
+  vendor_duns                              String?   @db.VarChar(50)
+  vendor_an_id                             String?   @db.VarChar(50)
+  vendor_industry_description              String?   @db.VarChar(50)
+  vendor_address_line_1                    String?   @db.VarChar(150)
+  vendor_address_line_2                    String?   @db.VarChar(150)
+  vendor_city                              String?   @db.VarChar(50)
+  vendor_state_province                    String?   @db.VarChar(50)
+  vendor_postal_code                       String?   @db.VarChar(50)
+  vendor_country_code                      String?   @db.VarChar(50)
+  iso_country_code                         String?   @db.VarChar(50)
+  user_defined_text_field_1                String?   @db.VarChar(150)
+  user_defined_text_field_2                String?   @db.VarChar(150)
+  user_defined_text_field_3                String?   @db.VarChar(150)
+  user_defined_text_field_4                String?   @db.VarChar(150)
+  user_defined_text_field_5                String?   @db.VarChar(150)
+  user_defined_numeric_field_1             Decimal?  @db.Decimal(27, 7)
+  user_defined_numeric_field_2             Decimal?  @db.Decimal(27, 7)
+  user_defined_numeric_field_3             Decimal?  @db.Decimal(27, 7)
+  user_defined_numeric_field_4             Decimal?  @db.Decimal(27, 7)
+  user_defined_numeric_field_5             Decimal?  @db.Decimal(27, 7)
+  user_defined_date_field_1                DateTime? @db.Timestamp(6)
+  fiscal_year                              Int?
+  dedupe_stats                             String?   @db.VarChar(50)
+  dedupe_key                               String?   @db.VarChar(50)
+  ariba_network_match                      String?   @db.VarChar(50)
+  supplier_name_on_an                      String?   @db.VarChar(500)
+  anid_of_matched_supplier                 String?   @db.VarChar(50)
+  classification_source                    String?   @db.VarChar(50)
+  classification_id                        Int?
+  override_classfication_id                Int?
+  scope_source                             String?   @db.VarChar(50)
+  exclusion_reason                         String?   @db.VarChar(100)
+  direct_spend                             String?   @db.VarChar(50)
+  sourcing_eligible                        String?   @db.VarChar(20)
+  management_level                         String?   @db.VarChar(50)
+  comments                                 String?   @db.VarChar(250)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model var_class_type {
+  spend_file_class_system String? @db.VarChar(50)
+
+  @@ignore
+}
+
+model wrk_category_update {
+  oppor_id              Int
+  category_id           Int
+  category_scope        String?   @db.VarChar(20)
+  exclusion_reason_skey Int?
+  record_update_user_id String?   @db.Uuid
+  record_update_date    DateTime? @db.Timestamp(6)
+
+  @@id([oppor_id, category_id], map: "pk_oppor_category_id")
+}
+

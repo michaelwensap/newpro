@@ -1,0 +1,21 @@
+.dataTables_paginate {
+    text-align: right;
+    margin: 0;
+    font-weight: 400;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    float: right;
+}
+
+.pag-text {
+    /* 14 */
+    font-family: 72;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+    align-items: center;
+
+    /* Grey/6 */
+
+    color: #475e75;
+}

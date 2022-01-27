@@ -1,0 +1,113 @@
+.container-wrap {
+    margin-left: 10%;
+    margin-rigth: 10%;
+}
+.page {
+    margin-left: 10%;
+    margin-rigth: 10%;
+    margin-top: 5%;
+}
+.center {
+    margin: auto;
+    width: 100%;
+    padding: 100px;
+}
+.border {
+    margin: auto;
+    width: 100%;
+    border: 2px solid #f8f8ff;
+    padding: 100px;
+}
+.noborder {
+    margin: auto;
+    width: 100%;
+    padding: 100px;
+}
+.nav-pad {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.dot {
+    height: 40px;
+    width: 40px;
+    background-color: #f8f8ff;
+    border-radius: 50%;
+    display: inline-block;
+}
+.bg-primary {
+    background-color: #354a5f !important;
+}
+.navbar-primary {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    margin-bottom: 0;
+    padding: 0 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 7px 0 rgb(27 144 255 / 10%);
+}
+#header-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+.tpad20 {
+    padding-top: 20px;
+}
+.mt-6 {
+    margin-top: 4rem !important;
+}
+tr:hover {
+    background: #f5f6f7;
+}
+.aut2 {
+    position: absolute;
+    width: 162px;
+    height: 48px;
+    right: 60px;
+    top: 67px;
+    /* White */
+    background: #ffffff;
+    /* Grey/Medium */
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 8px 16px rgba(131, 150, 168, 0.16);
+    border-radius: 6px;
+}
+.aut {
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    right: 0;
+    top: 65px;
+    /* White */
+    background: #ffffff;
+    /* Grey/Medium */
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 8px 16px rgba(131, 150, 168, 0.16);
+    border-radius: 6px;
+}
+.autlink {
+    position: static;
+    width: 43px;
+    height: 24px;
+    left: 32px;
+    top: calc(50% - 24px / 2);
+    padding-top: 3px;
+
+    /* 14 */
+    font-family: 72;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+    display: flex;
+    align-items: center;
+
+    /* Grey/7 */
+    color: #354a5f;
+    cursor: pointer;
+    float: right;
+    padding-right: 90px;
+}

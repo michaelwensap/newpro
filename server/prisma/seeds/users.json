@@ -1,0 +1,11 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "username": "bob.doe",
+            "email": "bob.doe@sap.com",
+            "password": "$2b$10$nWy.QQ97bqr6jgZHZe/bJu9bCIG4TUnq68j.p/qvA9kFXZRJqNAl.",
+            "status": "PENDING"
+        }
+    ]
+}

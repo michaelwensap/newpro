@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "opportunity_name": "Sample High-Tech Company 2021 Opportunity Assessment (UNSPSC)",
+      "sa_owner_user_id": null,
+      "opportunity_start_date": "2021-08-30T04:00:00.000Z",
+      "opportunity_end_date": "2021-10-31T04:00:00.000Z",
+      "opportunity_status": null,
+      "spend_file_name": "Sample High-Tech File UNSPSC v2.xls",
+      "spend_file_desc": "This is a sample file generated for testing purposes.  It does not contain any customer data.  UNSPSC values were assigned using the GICS->UNSPSC map and the original test file.",
+      "spend_file_id": 3102,
+      "spend_file_class_system": "RUN DMC",
+      "spend_file_class_standard": "UNSPSC",
+      "spend_file_processed_date": "2021-05-12T04:00:00.000Z",
+      "record_create_date": "2021-08-24T19:01:54.179Z",
+      "record_update_date": "2021-09-24T16:58:31.000Z",
+      "record_update_user_id": null,
+      "spend_file_std_cur": "USD"
+    },
+    {
+      "id": 2,
+      "opportunity_name": "Sample High-Tech Company 2021 Opportunity Assessment (GICS)",
+      "sa_owner_user_id": null,
+      "opportunity_start_date": "2021-08-30T04:00:00.000Z",
+      "opportunity_end_date": "2021-10-29T04:00:00.000Z",
+      "opportunity_status": null,
+      "spend_file_name": "Sample High Tech File v2.xls",
+      "spend_file_desc": "This is a sample file generated for testing purposes.  It does not contain any customer data.",
+      "spend_file_id": 3103,
+      "spend_file_class_system": "RUN DMC",
+      "spend_file_class_standard": "GICS",
+      "spend_file_processed_date": "2021-05-13T04:00:00.000Z",
+      "record_create_date": "2021-08-24T18:35:38.375Z",
+      "record_update_date": "2021-09-02T17:51:00.000Z",
+      "record_update_user_id": null,
+      "spend_file_std_cur": "USD"
+    }
+  ]
+}

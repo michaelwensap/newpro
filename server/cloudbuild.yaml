@@ -1,0 +1,26 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--target', 'production', '-t', 'gcr.io/sap-nvt-sapio-savingsnow/saweb-api', '--build-arg', 'DATABASE_URL=$$DATABASE_URL', '--build-arg', 'CORS_ORIGIN=$$CORS_ORIGIN', '--build-arg', 'JWT_ACCESS_SECRET=$$JWT_ACCESS_SECRET', '--build-arg', 'JWT_REFRESH_SECRET=$$JWT_REFRESH_SECRET', '.']
+    secretEnv: ['DATABASE_URL', 'CORS_ORIGIN', 'JWT_ACCESS_SECRET', 'JWT_REFRESH_SECRET']
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/sap-nvt-sapio-savingsnow/saweb-api']
+  # Deploy contaimer image to Cloud RUN
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: ['run', 'deploy', 'api', '--image', 'gcr.io/sap-nvt-sapio-savingsnow/saweb-api', '--region', 'us-central1', '--platform', 'managed', '--port', '3000']
+images:
+  - gcr.io/sap-nvt-sapio-savingsnow/saweb-api
+timeout: 6000s
+availableSecrets:
+  secretManager: 
+    - versionName: projects/sap-nvt-sapio-savingsnow/secrets/integration-db-connection-url/versions/latest
+      env: 'DATABASE_URL'
+    - versionName: projects/sap-nvt-sapio-savingsnow/secrets/integration-cors-origin/versions/latest
+      env: 'CORS_ORIGIN'
+    - versionName: projects/sap-nvt-sapio-savingsnow/secrets/integration-jwt-access-secret/versions/latest
+      env: 'JWT_ACCESS_SECRET'
+    - versionName: projects/sap-nvt-sapio-savingsnow/secrets/integration-jwt-refresh-secret/versions/latest
+      env: 'JWT_REFRESH_SECRET'
+

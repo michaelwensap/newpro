@@ -1,0 +1,83 @@
+import { ObjectType, Field, Int } from '@nestjs/graphql'
+import { OpportunityAssessment } from './opportunity-assessment.entity'
+
+@ObjectType()
+export class SpendFile {
+    id: number
+    sa_oppor: OpportunityAssessment
+    record_id: number
+    vendor_id: number
+    @Field({ nullable: true })
+    vendor_name: string
+    last_sourced_date: Date
+    contract_expiration_date: Date
+    erp_system: number
+    erp_invoice_spend: number
+    erp_invoice_spend_iso_cur: string
+    erp_invoice_spend_in_standard_currency: string
+    currency_conversion_rate: number
+    erp_invoice_count: number
+    invoice_method: string
+    invoice_origination_country: string
+    erp_po_spend: number
+    erp_po_spend_iso_cur: string
+    erp_po_spend_in_standard_currency: number
+    erp_po_count: number
+    payment_count: number
+    payment_method: string
+    payment_terms_code: string
+    payment_term_description: string
+    standard_term: string
+    discount_term: string
+    discount_percentage: number
+    discounts_earned: number
+    discounts_lost: number
+    dpo: number
+    buyer_region: string
+    business_unit: string
+    gl_code: number
+    gl_code_description: string
+    sic_unspsc_code: number
+    sic_unspsc_description: string
+    erp_commodity_code_or_description_tier_1: string
+    erp_commodity_code_or_description_tier_2: string
+    vendor_tax_id: string
+    vendor_vat_id: string
+    vendor_duns: string
+    vendor_an_id: string
+    vendor_industry_description: string
+    vendor_address_line_1: string
+    vendor_address_line_2: string
+    vendor_city: string
+    vendor_state_province: string
+    vendor_postal_code: string
+    vendor_country: string
+    vendor_country_code: string
+    user_defined_text_field_1: string
+    user_defined_text_field_2: string
+    user_defined_text_field_3: string
+    user_defined_text_field_4: string
+    user_defined_text_field_5: string
+    user_defined_numeric_field_1: number
+    user_defined_numeric_field_2: number
+    user_defined_numeric_field_3: number
+    user_defined_numeric_field_4: number
+    user_defined_numeric_field_5: number
+    user_defined_date_field_1: Date
+    fiscal_year: number
+    dedupe_stats: string
+    dedupe_key: string
+    anid_of_matched_supplier: string
+    capiq_company_id: number
+    classification_score: string
+    classification_source: string
+    classification_type: number
+    classification_code: number
+    direct_spend: string
+    scope_in_out: string
+    out_of_scope_reason: string
+    comments: string
+    record_create_date: Date
+    record_update_date: Date
+    supplier_scope_override_flag: number
+}

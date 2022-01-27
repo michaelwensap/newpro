@@ -1,0 +1,124 @@
+@font-face {
+    font-family: '72-Regular';
+    src: local('72-Regular'), url(./fonts/72-Regular.woff) format('woff');
+}
+@font-face {
+    font-family: '72-Black';
+    src: local('72-Black'), url(./fonts/72-Black.woff) format('woff');
+}
+
+body,
+html,
+#root,
+.App {
+    font-family: '72-Regular';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #fdfdfd;
+}
+.ball {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ebf8ff;
+    cursor: pointer;
+}
+.b {
+    font-weight: bold;
+}
+.bl {
+    font-family: '72-Black' !important;
+}
+input {
+    background: #f5f6f7 !important;
+    border-radius: 6px !important;
+    font-size: 14px !important;
+    margin-right: 30px;
+}
+select {
+    background: #f5f6f7 !important;
+}
+textarea {
+    background: #f5f6f7 !important;
+    border-radius: 6px !important;
+}
+
+.navbar-primary {
+    padding: 0 20px 0 0 !important;
+}
+/* BootStrap Theme Overide */
+/* Primary - Blue4 bg/ white text  */
+
+.btn-primary {
+    background: #0070f2;
+    /* Blue/XS */
+    box-shadow: 0px 0px 2px rgba(27, 144, 255, 0.16),
+        0px 2px 4px rgba(27, 144, 255, 0.16);
+    color: #ffffff;
+    border-radius: 6px;
+    font-size: 14px !important;
+}
+.btn-primary:hover {
+    /* Blue/6 */
+    background: #0057d2;
+    /* Blue/Small */
+    box-shadow: 0px 0px 2px rgba(27, 144, 255, 0.16),
+        0px 4px 8px rgba(27, 144, 255, 0.16);
+}
+.btn-primary:active {
+    /* Blue/7 */
+    background: #0040b0;
+    /* Blue/XS */
+    box-shadow: 0px 0px 2px rgba(27, 144, 255, 0.16),
+        0px 2px 4px rgba(27, 144, 255, 0.16);
+}
+.btn-primary:focus {
+    /* Blue/7 */
+    background: #0040b0;
+    /* White */
+    border: 2px solid #ffffff;
+    box-sizing: border-box;
+    /* Blue/Small */
+    box-shadow: 0px 0px 2px rgba(27, 144, 255, 0.16),
+        0px 4px 8px rgba(27, 144, 255, 0.16);
+}
+
+.btn-light {
+    color: #5b738b !important;
+    background-color: #ffffff;
+    border-radius: 6px;
+    font-weight: bold !important;
+    font-size: 14px !important;
+}
+.btn-light:hover {
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 4px 8px rgba(131, 150, 168, 0.16);
+}
+.btn-light:active {
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 2px 4px rgba(131, 150, 168, 0.16);
+}
+.btn-light:focus {
+    box-shadow: 0px 0px 2px rgba(131, 150, 168, 0.16),
+        0px 4px 8px rgba(131, 150, 168, 0.16);
+}
+table tr {
+    max-height: 44px;
+}
+table {
+    border: none;
+    border-collapse: collapse;
+}
+table td {
+    border-left: 1px solid #f0f2f4;
+}
+table td:first-child {
+    border-left: none;
+}
+table tr:last-child {
+    border-bottom: 1px solid #f0f2f4;
+}
